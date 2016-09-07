@@ -26,6 +26,7 @@ static DigitalOut led1(LED1);
 // (note the calls to Thread::wait below for delays)
 int main() {
     while (true) {
+        printf("Alive!\n");
         led1 = !led1;
         Thread::wait(PERIOD_MS);
     }
