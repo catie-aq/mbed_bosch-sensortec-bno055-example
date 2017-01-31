@@ -9,13 +9,13 @@
 <booleanAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.doStartGdbServer" value="true"/>
 <booleanAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.enableSemihosting" value="true"/>
 <stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.firstResetType" value="init"/>
-<stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbClientOtherCommands" value="set mem inaccessible-by-default off"/>
+<stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbClientOtherCommands" value=""/>
 <stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbClientOtherOptions" value=""/>
 <stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerConnectionAddress" value=""/>
-<stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerExecutable" value="/usr/bin/openocd"/>
+<stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerExecutable" value="openocd"/>
 <intAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerGdbPortNumber" value="3333"/>
 <stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerLog" value=""/>
-<stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerOther" value="-f ${project_path}/dist/openocd.cfg"/>
+<stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerOther" value="-s dist -f openocd.cfg"/>
 <intAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.gdbServerTelnetPortNumber" value="4444"/>
 <stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.otherInitCommands" value=""/>
 <stringAttribute key="ilg.gnuarmeclipse.debug.gdbjtag.openocd.otherRunCommands" value=""/>
@@ -44,7 +44,7 @@
 <intAttribute key="org.eclipse.cdt.launch.ATTR_BUILD_BEFORE_LAUNCH_ATTR" value="1"/>
 <stringAttribute key="org.eclipse.cdt.launch.COREFILE_PATH" value=""/>
 <stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_REGISTER_GROUPS" value=""/>
-<stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="./BUILD/ZEST_CORE_STM32L476/GCC_ARM/${project_name}.elf"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="./BUILD/ZEST_CORE_STM32L476/GCC_ARM/app-template.elf"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="app-template"/>
 <booleanAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_AUTO_ATTR" value="false"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_ID_ATTR" value="0.1913531204.268599203"/>
