@@ -17,7 +17,7 @@
 #include "mbed.h"
 
 namespace {
-#define PERIOD_MS 500 
+#define PERIOD_MS 500
 }
 
 static DigitalOut led1(LED1);
