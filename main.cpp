@@ -24,7 +24,8 @@ static DigitalOut led1(LED1);
 
 // main() runs in its own thread in the OS
 // (note the calls to Thread::wait below for delays)
-int main() {
+int main()
+{
     while (true) {
         printf("Alive!\n");
         led1 = !led1;
