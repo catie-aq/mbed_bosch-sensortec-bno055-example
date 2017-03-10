@@ -1,16 +1,17 @@
+#!/usr/bin/env python
 import os
 import argparse
 
 # Check args
-parser = argparse.ArgumentParser(description='Upload elf binary on board')
-parser.add_argument('-f', required=True, help="Path to the elf file")
+parser = argparse.ArgumentParser(description='Program elf binary to board')
+parser.add_argument("elf_file", help="Path to the elf file")
 args = parser.parse_args()
-elf_path = args.f.replace("\\","/")
 
-# Change to script directory
-script_path = os.path.dirname(os.path.abspath(__file__))
-os.chdir(script_path)
+elf_path = os.path.abspath(args.elf_file).replace("\\","/")
+
+script_dirname = os.path.dirname(os.path.abspath(__file__))
+config_path = os.path.join(script_dirname, "openocd.cfg").replace("\\", "/")
 
 # Flash target
-cmd = "openocd -f openocd.cfg -c \"program " + elf_path +" verify reset exit\""
+cmd = 'openocd -f {} -c "program {} verify reset exit"'.format(config_path, elf_path)
 os.system(cmd)
