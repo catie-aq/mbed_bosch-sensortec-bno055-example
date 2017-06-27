@@ -18,7 +18,7 @@
 #include "bno055.hpp"
 
 namespace {
-#define PERIOD_MS 50
+#define PERIOD_MS 100
 }
 
 static DigitalOut led1(LED1);
