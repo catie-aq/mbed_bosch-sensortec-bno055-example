@@ -22,7 +22,7 @@ namespace {
 }
 
 static DigitalOut led1(LED1);
-static I2C i2c(I2C1_SDA, I2C1_SCL);
+static I2C i2c(I2C_SDA, I2C_SCL);
 static Serial pc(SERIAL_TX, SERIAL_RX);
 
 static BNO055 bno1(&i2c);
