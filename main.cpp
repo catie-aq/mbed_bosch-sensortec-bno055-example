@@ -43,7 +43,7 @@ int main()
 	}
     while (true) {
     	bno1.read_accel(&accel);
-    	bno1.get_calibration_status(&sys, &acc, &gyro, &mag);
+    	bno1.get_calibration_status(&sys, &gyro, &acc, &mag);
     	bno1.read_euler(&euler);
 
     	pc.printf("ACCEL: %.3f %.3f %.3f EULER : %.3f %.3f %.3f Calib: %d% d% d %d\n", accel.x, accel.y, accel.z,
