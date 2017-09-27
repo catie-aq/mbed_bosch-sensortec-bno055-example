@@ -15,7 +15,9 @@
  * limitations under the License.
  */
 #include "mbed.h"
-#include "bno055.hpp"
+#include "bno055.h"
+
+using namespace sixtron;
 
 namespace {
 #define PERIOD_MS 100
@@ -37,7 +39,7 @@ int main()
 {
 	pc.baud(115200);
 
-	if (bno1.initialize(BNO055::OperationMode::OperationMode_NDOF, true) != true) {
+	if (bno1.initialize(BNO055::OperationMode::NDOF, true) != true) {
 		pc.printf("ERROR BNO055 not detected. Check your wiring and BNO I2C address\n");
 		return 0;
 	}
