@@ -37,12 +37,12 @@ uint8_t sys, acc, gyro, mag;
 // (note the calls to Thread::wait below for delays)
 int main()
 {
-	pc.baud(115200);
+    pc.baud(115200);
 
-	if (bno1.initialize(BNO055::OperationMode::NDOF, true) != true) {
-		pc.printf("ERROR BNO055 not detected. Check your wiring and BNO I2C address\n");
-		return 0;
-	}
+    if (bno1.initialize(BNO055::OperationMode::NDOF, true) != true) {
+	pc.printf("ERROR BNO055 not detected. Check your wiring and BNO I2C address\n");
+	return 0;
+    }
     while (true) {
     	bno1.read_accel(&accel);
     	bno1.get_calibration_status(&sys, &gyro, &acc, &mag);
