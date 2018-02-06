@@ -20,37 +20,61 @@
 using namespace sixtron;
 
 namespace {
-#define PERIOD_MS 100
+#define PERIOD_MS 1000
 }
+
+void set_configure_sensors(void);
 
 static DigitalOut led1(LED1);
 static I2C i2c(I2C_SDA, I2C_SCL);
-static Serial pc(SERIAL_TX, SERIAL_RX);
 
 static BNO055 bno1(&i2c);
 
-static bno055_accel_t accel;
+static bno055_accelerometer_t accel;
 static bno055_euler_t euler;
-uint8_t sys, acc, gyro, mag;
+static bno055_gyroscope_t gyro1;
+static bno055_calibration_status_t calib;
+static bno055_magnetometer_t mag;
 
 // main() runs in its own thread in the OS
 // (note the calls to Thread::wait below for delays)
 int main()
 {
-    pc.baud(115200);
-
     if (bno1.initialize(BNO055::OperationMode::NDOF, true) != true) {
-	pc.printf("ERROR BNO055 not detected. Check your wiring and BNO I2C address\n");
-	return 0;
+    	printf("ERROR BNO055 not detected. Check your wiring and BNO I2C address\n\r");
+    	return 0;
     }
-    while (true) {
-    	bno1.read_accel(&accel);
-    	bno1.get_calibration_status(&sys, &gyro, &acc, &mag);
-    	bno1.read_euler(&euler);
+    else{
+    	// if no fusion mode, here you can configure settings of device
+    	if(bno1.operating_mode() < BNO055::OperationMode::IMUPLUS) {
+    		// set configure device : acc, gyro and mag sensors
+    		set_configure_sensors();
+    	}
+    	printf("BNO055 configured\n\r");
+    }
 
-    	pc.printf("ACCEL: %.3f %.3f %.3f EULER : %.3f %.3f %.3f Calib: %d% d% d %d\n", accel.x, accel.y, accel.z,
-    			euler.x*180/3.1415, euler.y*180/3.1415, euler.z*180/3.1415, sys, acc, gyro, mag);
+    while (true) {
+        accel = bno1.accelerometer();
+        calib = bno1.calibration_status();
+        euler = bno1.euler();
+    	gyro1 = bno1.gyroscope();
+    	mag = bno1.magnetometer();
+
+    	if(bno1.operating_mode() < BNO055::OperationMode::IMUPLUS) {
+    	    printf("NO FUSION : ACCEL: %.3f %.3f %.3f GYRO : %.3f %.3f %.3f \n\r", accel.x, accel.y, accel.z,
+    	                    gyro1.x, gyro1.y, gyro1.z);
+    	} else {
+    	    printf("ACCEL: %.3f %.3f %.3f EULER : %.3f %.3f %.3f Calib: %d% d% d %d\n\r", accel.x, accel.y, accel.z,
+    			euler.x*180/3.1415, euler.y*180/3.1415, euler.z*180/3.1415, calib.system, calib.accelerometer, calib.gyroscope, calib.magnetometer);
+    	}
         led1 = !led1;
         Thread::wait(PERIOD_MS);
     }
+}
+
+void set_configure_sensors()
+{
+    bno1.set_accelerometer_configuration(BNO055::AccSensorRange::_4G, BNO055::AccSensorBandWidth::_62Hz, BNO055::AccSensorOpeMode::Normal);
+    bno1.set_gyroscope_configuration(BNO055::GyroSensorRange::_2000DPS, BNO055::GyroSensorBandWidth::_32Hz, BNO055::GyroSensorOpeMode::Normal);
+    bno1.set_magnetometer_configuration(BNO055::MagSensorDataOutputRate::_20Hz, BNO055::MagSensorOpeMode::EnhancedRegular, BNO055::MagSensorPowerMode::ForceMode);
 }
