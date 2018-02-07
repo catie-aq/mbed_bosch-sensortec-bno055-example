@@ -74,7 +74,7 @@ int main()
 
 void set_configure_sensors()
 {
-    bno1.set_accelerometer_configuration(BNO055::AccSensorRange::_4G, BNO055::AccSensorBandWidth::_62Hz, BNO055::AccSensorOpeMode::Normal);
-    bno1.set_gyroscope_configuration(BNO055::GyroSensorRange::_2000DPS, BNO055::GyroSensorBandWidth::_32Hz, BNO055::GyroSensorOpeMode::Normal);
-    bno1.set_magnetometer_configuration(BNO055::MagSensorDataOutputRate::_20Hz, BNO055::MagSensorOpeMode::EnhancedRegular, BNO055::MagSensorPowerMode::ForceMode);
+    bno1.set_accelerometer_configuration(BNO055::AccelerometerSensorRange::_4G, BNO055::AccelerometerSensorBandWidth::_62Hz, BNO055::AccelerometerSensorOpeMode::Normal);
+    bno1.set_gyroscope_configuration(BNO055::GyroscopeSensorRange::_2000DPS, BNO055::GyroscopeSensorBandWidth::_32Hz, BNO055::GyroscopeSensorOpeMode::Normal);
+    bno1.set_magnetometer_configuration(BNO055::MagnetometerSensorDataOutputRate::_20Hz, BNO055::MagnetometerSensorOpeMode::EnhancedRegular, BNO055::MagnetometerSensorPowerMode::ForceMode);
 }
