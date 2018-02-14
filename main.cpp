@@ -60,6 +60,7 @@ int main()
     	gyro1 = bno1.gyroscope();
     	mag = bno1.magnetometer();
 
+    	// Orientation values are available only in fusion mode
     	if(bno1.operating_mode() < BNO055::OperationMode::IMUPLUS) {
     	    printf("ACCEL: %.3f %.3f %.3f GYRO : %.3f %.3f %.3f \n\r", accel.x, accel.y, accel.z,
     	                    gyro1.x, gyro1.y, gyro1.z);
