@@ -45,7 +45,7 @@ int main()
     	return 0;
     }
     else{
-    	// if no fusion mode, here you can configure settings of device
+    	// if no fusion mode, configure the settings of device
     	if(bno1.operating_mode() < BNO055::OperationMode::IMUPLUS) {
     		// set configure device : acc, gyro and mag sensors
     		set_configure_sensors();
@@ -61,7 +61,7 @@ int main()
     	mag = bno1.magnetometer();
 
     	if(bno1.operating_mode() < BNO055::OperationMode::IMUPLUS) {
-    	    printf("NO FUSION : ACCEL: %.3f %.3f %.3f GYRO : %.3f %.3f %.3f \n\r", accel.x, accel.y, accel.z,
+    	    printf("ACCEL: %.3f %.3f %.3f GYRO : %.3f %.3f %.3f \n\r", accel.x, accel.y, accel.z,
     	                    gyro1.x, gyro1.y, gyro1.z);
     	} else {
     	    printf("ACCEL: %.3f %.3f %.3f EULER : %.3f %.3f %.3f Calib: %d% d% d %d\n\r", accel.x, accel.y, accel.z,
