@@ -13,3 +13,4 @@ angles, and calibration status.
   3, 3 being full callibrated. Calibration values are printed in the following
   order : system, accelerometer, gyrometer, magnetometer
 
+**Default baudrate** : 115200
