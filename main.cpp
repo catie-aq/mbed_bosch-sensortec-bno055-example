@@ -23,7 +23,7 @@ namespace {
 #define PERIOD_MS 1000
 }
 
-void set_configure_sensors(void);
+void configure_sensors(void);
 
 static DigitalOut led1(LED1);
 static I2C i2c(I2C_SDA, I2C_SCL);
@@ -48,7 +48,7 @@ int main()
     	// if no fusion mode, configure the settings of device
     	if(bno1.operating_mode() < BNO055::OperationMode::IMUPLUS) {
     		// set configure device : acc, gyro and mag sensors
-    		set_configure_sensors();
+    		configure_sensors();
     	}
     	printf("BNO055 configured\n\r");
     }
@@ -72,7 +72,7 @@ int main()
     }
 }
 
-void set_configure_sensors()
+void configure_sensors()
 {
     bno1.set_accelerometer_configuration(BNO055::AccelerometerSensorRange::_4G, BNO055::AccelerometerSensorBandWidth::_62Hz, BNO055::AccelerometerSensorOperationMode::Normal);
     bno1.set_gyroscope_configuration(BNO055::GyroscopeSensorRange::_2000DPS, BNO055::GyroscopeSensorBandWidth::_32Hz, BNO055::GyroscopeSensorOperationMode::Normal);
