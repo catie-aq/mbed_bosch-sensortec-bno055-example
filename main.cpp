@@ -20,7 +20,7 @@
 using namespace sixtron;
 
 namespace {
-#define PERIOD_MS 1000
+#define PERIOD_MS 100
 }
 
 void configure_sensors(void);
