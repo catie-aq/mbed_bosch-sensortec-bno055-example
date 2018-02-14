@@ -27,6 +27,7 @@ void configure_sensors(void);
 
 static DigitalOut led1(LED1);
 static I2C i2c(I2C_SDA, I2C_SCL);
+static Serial pc(SERIAL_TX, SERIAL_RX);
 
 static BNO055 bno1(&i2c);
 
@@ -40,6 +41,8 @@ static bno055_magnetometer_t mag;
 // (note the calls to Thread::wait below for delays)
 int main()
 {
+    pc.baud(115200);
+
     if (bno1.initialize(BNO055::OperationMode::NDOF, true) != true) {
     	printf("ERROR BNO055 not detected. Check your wiring and BNO I2C address\n\r");
     	return 0;
