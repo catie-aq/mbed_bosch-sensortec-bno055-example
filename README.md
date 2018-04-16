@@ -16,7 +16,7 @@ angles, and calibration status:
   of the fusion of the inputs given by the accelerometer, the gyroscope and the
   magnetometer
 * Calibration status report the state of calibration of each sensor, from 0 to
-  3, 3 being full callibrated. Calibration values are printed in the following
+  3, 3 being full calibrated. Calibration values are printed in the following
   order : system, accelerometer, gyrometer, magnetometer
 
 In **normal mode**, raw data from the accelerometer, gyroscope and magnetometer are printed.
