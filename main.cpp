@@ -59,7 +59,7 @@ void print_sensor_data()
 		gyro = bno.angular_velocity();
 		mag = bno.magnetic_field();
 
-		printf("LINEAR ACCELERATION (m/s²): %6.3f %6.3f %6.3f  EULER (°): %6.3f %6.3f %6.3f  Calib: %d% d% d %d\n\r",
+		printf("LINEAR ACCELERATION (m/s²): %6.3f %6.3f %6.3f  EULER (°): %6.3f %6.3f %6.3f  Calib: %d %d %d %d\n\r",
 				laccel.x, laccel.y, laccel.z, euler.x*180/3.1415, euler.y*180/3.1415, euler.z*180/3.1415, calib.system,
 				calib.accelerometer, calib.gyroscope, calib.magnetometer);
 	}
