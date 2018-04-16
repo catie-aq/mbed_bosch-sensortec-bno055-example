@@ -7,7 +7,7 @@ and non-fusion mode of the sensor.
 
 Press the **USER BUTTON** to switch between fusion mode and normal mode of the sensor.
 
-In **fusion mode**, the applications prints linear accelerations (gravity compensated), Euler
+In **fusion mode**, the application prints linear accelerations (gravity compensated), Euler
 angles, and calibration status:
 
 * Linear Accelerations (X, Y, Z) are the Earth relative accelerations. It is an output of the fusion
