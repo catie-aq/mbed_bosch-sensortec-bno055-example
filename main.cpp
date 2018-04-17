@@ -43,6 +43,9 @@ static EventQueue queue;
 
 static bool use_fusion = true;
 
+/*!
+* \brief User button interruption used to change IMU mode
+*/
 void button_interrupt()
 {
     use_fusion = !use_fusion;
@@ -50,6 +53,9 @@ void button_interrupt()
     queue.call(configure_sensors);
 }
 
+/*!
+* \brief print sensor data, depending on the sensor modes. Regularly called by the event queue 
+*/
 void print_sensor_data()
 {
     if (use_fusion) {
@@ -98,6 +104,9 @@ int main()
     queue.dispatch_forever();
 }
 
+/*!
+* \brief Configure sensors for fusion or non-fusion mode
+*/
 void configure_sensors()
 {
     if (use_fusion) {
