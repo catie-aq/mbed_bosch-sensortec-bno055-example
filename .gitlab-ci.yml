@@ -1,19 +1,17 @@
-image: ubuntu:16.04-1
+image: registry.gitlab.com/catie_6tron/ci-template
 
 compile:
-  before_script:
-    - add-apt-repository -y ppa:team-gcc-arm-embedded/ppa
-    - apt-get update
-    - apt-get install -y gcc-arm-embedded
-
   script:
-    - sed -i -e "s/gitlab.com/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/g" *.lib
-    - if [ -d "mbed-os" ];then  cd mbed-os/; git remote set-url origin https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/catie_6tron/mbed-os; git pull; cd ..; fi
-    - mbed deploy
-    - touch .mbed
-    - mbed toolchain GCC_ARM
-    - cat mbed-os/targets/targets.json | grep ZEST | cut -d '"' -f 2 >> targets
-    - for j in $(cat targets); do mbed target $j; mbed compile; done
+    - python .gitlab-ci/deploy.py
+    - pip install -r mbed-os/requirements.txt
+    - export MBED_GCC_ARM_PATH="/opt/gcc-arm-none-eabi-6-2017-q2-update/bin/"
+    - python .gitlab-ci/compile.py
+
+  artifacts:
+    name: "$CI_PROJECT_NAME"
+    paths:
+      - BUILD/*/GCC_ARM/*.bin
+    expire_in: 1 week
 
   only:
     - master
