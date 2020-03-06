@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 # Copyright (c) 2017, CATIE, All Rights Reserved
 # SPDX-License-Identifier: Apache-2.0
