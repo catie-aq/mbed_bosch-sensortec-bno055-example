@@ -20,13 +20,13 @@
 using namespace sixtron;
 
 namespace {
-#define PERIOD_MS 100
+#define PERIOD 100ms
 }
 
 void configure_sensors(void);
 
 static DigitalOut led1(LED1);
-static I2C i2c(I2C_SDA, I2C_SCL);
+static I2C i2c(I2C1_SDA, I2C1_SCL);
 static InterruptIn button(BUTTON1);
 
 static BNO055 bno(&i2c);
@@ -48,7 +48,7 @@ static bool use_fusion = true;
 void button_interrupt()
 {
     use_fusion = !use_fusion;
-    queue.call(printf, "SWITCH IMU MODE TO : %s !\n", (use_fusion? "FUSION":"NORMAL"));
+    queue.call(printf, "\nSWITCH IMU MODE TO: %s!\n", (use_fusion? "FUSION":"NORMAL"));
     queue.call(configure_sensors);
 }
 
@@ -64,17 +64,19 @@ void print_sensor_data()
         gyro = bno.angular_velocity();
         mag = bno.magnetic_field();
 
-        printf("LINEAR ACCELERATION (m/s²): %6.3f %6.3f %6.3f  EULER (°): %6.3f %6.3f %6.3f  CALIBRATION: %d %d %d %d\n\r",
-                laccel.x, laccel.y, laccel.z, 
-                euler.x*180/3.1415, euler.y*180/3.1415, euler.z*180/3.1415,
-                calib.system, calib.accelerometer, calib.gyroscope, calib.magnetometer);
+        printf("LINEAR ACCELERATION (m/s²): %6.3f %6.3f %6.3f \tEULER (°): %6.3f %6.3f %6.3f \tCALIBRATION: %d %d %d %d    \r",
+            laccel.x, laccel.y, laccel.z, 
+            euler.x*180/3.1415, euler.y*180/3.1415, euler.z*180/3.1415,
+            calib.system, calib.accelerometer, calib.gyroscope, calib.magnetometer);
+        fflush(stdout);
     } else {
         accel = bno.acceleration();
         gyro = bno.angular_velocity();
         mag = bno.magnetic_field();
 
-        printf("ACCELERATION (m/s²): %6.3f %6.3f %6.3f  GYROSCOPE (°/s): %6.3f %6.3f %6.3f  MAGNETOMETER (µT): %6.3f %6.3f %6.3f\n\r",
-                accel.x, accel.y, accel.z, gyro.x, gyro.y, gyro.z, mag.x, mag.y, mag.z);
+        printf("ACCELERATION (m/s²): %6.3f %6.3f %6.3f\tGYROSCOPE (°/s): %6.3f %6.3f %6.3f\tMAGNETOMETER (µT): %6.3f %6.3f %6.3f    \r",
+            accel.x, accel.y, accel.z, gyro.x, gyro.y, gyro.z, mag.x, mag.y, mag.z);
+        fflush(stdout);
     }
 
     led1 = !led1;
@@ -88,15 +90,14 @@ int main()
     if (bno.initialize(BNO055::OperationMode::NDOF, true) != true) {
         printf("ERROR BNO055 not detected. Check your wiring and BNO I2C address\n\r");
         return 0;
-    } else {
-        printf("BNO055 configured in fusion mode !\n\r");
     }
+    printf("BNO055 configured in fusion mode!\n\r");
 
     button.fall(button_interrupt);
 
-    ThisThread::sleep_for(1000);
+    ThisThread::sleep_for(1s);
 
-    queue.call_every(PERIOD_MS, print_sensor_data);
+    queue.call_every(PERIOD, print_sensor_data);
     queue.dispatch_forever();
 }
 
@@ -111,13 +112,13 @@ void configure_sensors()
         bno.set_operation_mode(BNO055::OperationMode::AMG);
 
         bno.set_accelerometer_configuration(BNO055::AccelerometerSensorRange::_4G,
-                BNO055::AccelerometerSensorBandWidth::_500Hz,
-                BNO055::AccelerometerSensorOperationMode::Normal);
+            BNO055::AccelerometerSensorBandWidth::_500Hz,
+            BNO055::AccelerometerSensorOperationMode::Normal);
         bno.set_gyroscope_configuration(BNO055::GyroscopeSensorRange::_2000DPS,
-                BNO055::GyroscopeSensorBandWidth::_116Hz,
-                BNO055::GyroscopeSensorOperationMode::Normal);
+            BNO055::GyroscopeSensorBandWidth::_116Hz,
+            BNO055::GyroscopeSensorOperationMode::Normal);
         bno.set_magnetometer_configuration(BNO055::MagnetometerSensorDataOutputRate::_20Hz,
-                BNO055::MagnetometerSensorOperationMode::HighAccuracy,
-                BNO055::MagnetometerSensorPowerMode::Normal);
+            BNO055::MagnetometerSensorOperationMode::HighAccuracy,
+            BNO055::MagnetometerSensorPowerMode::Normal);
     }
 }
