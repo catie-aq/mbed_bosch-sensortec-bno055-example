@@ -1,6 +1,5 @@
 # Bosch Sensortec BNO055 example
 
-[![pipeline status](https://gitlab.com/catie_6tron/bosch-sensortec-bno055-example/badges/master/pipeline.svg)](https://gitlab.com/catie_6tron/bosch-sensortec-bno055-example/commits/master)
 
 A simple demo using a BNO055 to demonstrate some of the data that can be retrieved in fusion mode
 and non-fusion mode of the sensor.
